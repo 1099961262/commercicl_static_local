@@ -65,16 +65,6 @@
       :visible="trafficDrawer"
       :onCancel="() => change('trafficDrawer')"
     ></TrafficDrawer>
-    <!-- 人群分布热力图开关 -->
-    <!-- <div class="switch-box" v-show="passengerDrawer">
-      <div class="switch-box-title switch-margin">人群分布热力图</div>
-      <div class="switch-margin">
-        <el-switch :value="true" inactive-text="居住客群"> </el-switch>
-      </div>
-      <div>
-        <el-switch :value="false" inactive-text="办公客群"> </el-switch>
-      </div>
-    </div> -->
   </div>
 </template>
 

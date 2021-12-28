@@ -117,11 +117,11 @@ export default {
     var circle = new AMap.Circle({
       center: new AMap.LngLat("116.527139", "39.951948"), // 圆心位置
       radius: 3000, //半径
-      strokeColor: "#F33", //线颜色
+      strokeColor: "#108ee9", //线颜色
       strokeOpacity: 1, //线透明度
-      strokeWeight: 3, //线粗细度
-      fillColor: "#ee2200", //填充颜色
-      fillOpacity: 0.35, //填充透明度
+      strokeWeight: 2, //线粗细度
+      fillColor: "#108ee9", //填充颜色
+      fillOpacity: 0.1, //填充透明度
     });
     map.add(circle);
     map.plugin(["AMap.Heatmap"], function () {
