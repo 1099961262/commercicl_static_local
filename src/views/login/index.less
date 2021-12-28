@@ -1,0 +1,71 @@
+.mian {
+    width: 100%;
+    height: 100%;
+    background: url('~@/assets/img/login-bg.png') 100% 100% no-repeat;
+    background-size: 100% 100% !important;
+    position: relative;
+}
+.login-box {
+    width: 542px;
+    // height: 633px;
+    padding: 0 27px 42px;
+    background-color: #fff;
+    border-radius: 10px;
+    position: absolute;
+    top: 20%;
+    right: 100px;
+    .title-box {
+        line-height: 84px;
+        font-size: 28px;
+        font-weight: bold;
+        color: #000000;
+        border-bottom: 2px solid #e2e2e2;
+        margin-bottom: 50px;
+    }
+    .input-box {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 0;
+        border-bottom: 2px solid #e2e2e2;
+        /* 利用穿透，设置input边框隐藏 */
+    }
+    .input-box /deep/ .el-input__inner {
+        border: none !important;
+    }
+
+    .label {
+        width: 100px;
+        min-width: 100px;
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 40px;
+    }
+
+    .img {
+        width: 80px;
+        min-width: 80px;
+        margin-left: 20px;
+        height: 40px;
+        cursor: pointer;
+    }
+    .but-box {
+        padding-top: 50px;
+        .button-submit {
+            display: block;
+            margin: 0 auto;
+            width: 392px;
+            height: 59px;
+            border-radius: 20px;
+            background-color: #406bf4;
+            color: #fff;
+            font-size: 18px;
+        }
+        .but-tips {
+            margin-top: 38px;
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+            color: #406bf4;
+        }
+    }
+}
