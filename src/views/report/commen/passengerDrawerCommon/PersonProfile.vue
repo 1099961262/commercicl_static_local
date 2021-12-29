@@ -13,7 +13,7 @@
         <div class="item-box item-top">
           <div class="context-left-item">
             <div class="left-item-box">
-              <div class="left-item-bot-title">123455m²</div>
+              <div class="left-item-bot-title">2250000㎡</div>
               <div>点位面积</div>
             </div>
           </div>
@@ -27,7 +27,7 @@
         <div class="item-box">
           <div class="context-left-item">
             <div class="left-item-box">
-              <div class="left-item-bot-title">3.8万人</div>
+              <div class="left-item-bot-title">6.5万人</div>
               <div>工作用户</div>
             </div>
           </div>
@@ -42,7 +42,7 @@
       <div class="context-right">
         <div class="context-right-cont">
           <div class="context-right-cont-title">高10%</div>
-          <div>相比市平均密度</div>
+          <div>相比周边平均密度</div>
         </div>
       </div>
     </div>
@@ -110,7 +110,7 @@ export default {
           type: "category",
           // type: "value",
           boundaryGap: true,
-          data: ["高端", "低端", "中端"],
+          data: ["4月", "5月", "6月", "7月", "8月", "9月"],
           axisLine: {
             show: false,
           },
@@ -129,7 +129,7 @@ export default {
         },
         series: [
           {
-            data: [820, 932, 901],
+            data: [820, 932, 901, 726, 857, 933],
             type: "line",
             // 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
             // symbol: "roundRect",
