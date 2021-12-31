@@ -192,9 +192,8 @@
                         class="custom-tree-node-item"
                         size="mini"
                         label-width="200px"
-                        :rules="node.parent.key ? formOneRules : null"
+                        :rules="formOneRules"
                       >
-                        <!-- :rules="node.parent.key ? formOneRules : null" -->
                         <el-input-number
                           v-model="formTwo[getKey(node)]"
                           :min="0"
@@ -230,6 +229,7 @@
                         class="custom-tree-node-item"
                         size="mini"
                         label-width="200px"
+                        :rules="formTwoeRules"
                       >
                         <el-input-number
                           v-model="formTwoTwo[getKey(node)]"
@@ -266,6 +266,7 @@
                         class="custom-tree-node-item"
                         size="mini"
                         label-width="200px"
+                        :rules="formThreeRules"
                       >
                         <el-input-number
                           v-model="formTwoThree[getKey(node)]"
@@ -436,7 +437,9 @@
               </el-row>
             </el-collapse-item>
             <el-collapse-item name="2">
-              <div slot="title" class="collapse-item-title">APP使用偏好</div>
+              <div slot="title" class="collapse-item-title">
+                APP使用偏好（按使用手机流量上网计算）
+              </div>
               <el-row :gutter="20">
                 <el-col :xs="24" :sm="12" :md="8" :lg="6">
                   <el-form-item prop="rijun" label="日均上网时长">
@@ -1052,11 +1055,191 @@ export default {
           ],
         },
       ],
-      formOneRules: {
-        trigger: ["blur", "change"],
-        validator: this.validataFather,
-      },
-
+      // 选中数组
+      fractionSelectarr: [
+        {
+          id: 1,
+          label: "稳定/流动人口占比",
+          value: "wending",
+          children: [
+            {
+              id: 2,
+              label: "人员非常稳定",
+              value: "a1",
+            },
+            {
+              id: 3,
+              label: "人员较为稳定",
+              value: "a2",
+            },
+            {
+              id: 4,
+              label: "稳定性一般",
+              value: "a3",
+            },
+          ],
+        },
+        {
+          id: 8,
+          label: "性别",
+          value: "sex",
+          children: [
+            {
+              id: 9,
+              label: "男",
+              value: "sex1",
+            },
+          ],
+        },
+        {
+          id: 11,
+          label: "年龄:",
+          value: "age",
+          children: [
+            {
+              id: 13,
+              label: "19-35岁",
+              value: "age2",
+            },
+          ],
+        },
+        {
+          id: 18,
+          label: "话费消费档次:",
+          value: "huafei",
+          children: [
+            {
+              id: 19,
+              label: "低消费",
+              value: "huafei1",
+            },
+            {
+              id: 20,
+              label: "较低消费",
+              value: "huafei2",
+            },
+            {
+              id: 21,
+              label: "中等消费",
+              value: "huafei3",
+            },
+            {
+              id: 22,
+              label: "中高消费",
+              value: "huafei4",
+            },
+            {
+              id: 23,
+              label: "高消费",
+              value: "huafei5",
+            },
+          ],
+        },
+        {
+          id: 24,
+          label: "手机号码在网时长:",
+          value: "hoama",
+          children: [
+            {
+              id: 26,
+              label: "1-3年",
+              value: "hoama2",
+            },
+          ],
+        },
+        {
+          id: 29,
+          label: "月手机上网流量:",
+          value: "shangwang",
+          children: [
+            {
+              id: 32,
+              label: "501M-1G年",
+              value: "shangwang3",
+            },
+            {
+              id: 33,
+              label: "1-5G",
+              value: "shangwang4",
+            },
+            {
+              id: 34,
+              label: "6-10G",
+              value: "shangwang5",
+            },
+            {
+              id: 35,
+              label: "10G以上",
+              value: "shangwang6",
+            },
+          ],
+        },
+        {
+          id: 36,
+          label: "终端类型:",
+          value: "zhuangduan",
+          children: [
+            {
+              id: 37,
+              label: "苹果",
+              value: "zhuangduan1",
+            },
+            {
+              id: 38,
+              label: "华为",
+              value: "zhuangduan2",
+            },
+            {
+              id: 39,
+              label: "OPPO",
+              value: "zhuangduan3",
+            },
+            {
+              id: 40,
+              label: "vivo",
+              value: "zhuangduan4",
+            },
+            {
+              id: 41,
+              label: "小米",
+              value: "zhuangduan5",
+            },
+            {
+              id: 42,
+              label: "三星",
+              value: "zhuangduan6",
+            },
+            {
+              id: 43,
+              label: "联想",
+              value: "zhuangduan7",
+            },
+            {
+              id: 44,
+              label: "其他",
+              value: "zhuangduan8",
+            },
+          ],
+        },
+      ],
+      formOneRules: [
+        {
+          trigger: ["blur"],
+          validator: this.validataFather,
+        },
+      ],
+      formTwoeRules: [
+        {
+          trigger: ["blur"],
+          validator: this.validataOther,
+        },
+      ],
+      formThreeRules: [
+        {
+          trigger: ["blur"],
+          validator: this.validataThree,
+        },
+      ],
       areaArr: [
         {
           label: "性别",
@@ -1396,11 +1579,15 @@ export default {
     formTwo: {
       handler(newName, oldName) {
         let arr = Object.keys(newName);
-        let number = 0;
+        let number = 0; //总分
         if (arr.length) {
           arr.map((item) => {
-            if (newName[item]) {
-              number += newName[item];
+            let brr = item.split(".");
+            // 判断是否为父级，父级的数字求和为总分
+            if (brr.length == 1) {
+              if (newName[item]) {
+                number += newName[item];
+              }
             }
           });
         }
@@ -1477,16 +1664,6 @@ export default {
       // });
       this.tagDialogVisible = false;
     },
-    // 验证正整数
-    fractionValidatePass(rule, value, callback) {
-      if (value === "") {
-        callback(new Error("请填写分数"));
-      } else if (!/(^[1-9]\d*$)/.test(value)) {
-        callback(new Error("请输入正整数分值!"));
-      } else {
-        callback();
-      }
-    },
 
     getKey(node) {
       let a = node.parent.key
@@ -1502,7 +1679,7 @@ export default {
     clearArea() {
       this.areaArr = [];
     },
-    // 表单密码校验
+    // 表单校验
     validataFraction(rule, value, callback) {
       if (!value) {
         callback(new Error("分数不能为空"));
@@ -1513,12 +1690,81 @@ export default {
       }
     },
 
-    // 验证不能比父级大
-    validataFather(rule, value, callback, source) {
-      let arr = Object.keys(source);
-      let brr = arr[0].split(".");
-      if (brr.length) {
-        if (this.formTwo[arr[0]] > this.formTwo[brr[0]]) {
+    // 分数表单校验
+    validataFather(rule, value, callback) {
+      let key = rule.field;
+      let brr = key.split(".");
+      let data = this.formTwo[key];
+      //  验证正整数
+      if (!data) {
+        callback(new Error("请填写分数"));
+        return;
+      } else if (!/^[1-9]\d*$/.test(data)) {
+        callback(new Error("请输入正整数分值!"));
+        return;
+      }
+      // 判断是否为子级
+      if (brr.length > 1) {
+        //  为子级
+        // 验证不能比父级大
+        if (data > this.formTwo[brr[0]]) {
+          callback(new Error("子项分数不能超过父项"));
+        } else {
+          callback();
+        }
+      } else {
+        //  为父级
+        // 提取此父级下选中的项
+        this.fractionSelectarr.map((item) => {
+          // 寻找到该父级
+          if (item.value.indexOf(key) !== -1) {
+            // 为子级赋值父级的值
+            item.children.map((res) => {
+              this.formTwo[`${key}.${res.value}`] = data;
+            });
+          }
+        });
+        callback();
+      }
+    },
+    // app分数表单校验
+    validataOther(rule, value, callback) {
+      let key = rule.field;
+      let brr = key.split(".");
+      let data = this.formTwoTwo[key];
+      //  验证正整数
+      if (!/^[1-9]\d*$/.test(data)) {
+        callback(new Error("请输入正整数分值!"));
+        return;
+      }
+      // 判断是否为子级
+      if (brr.length > 1) {
+        //  为子级
+        // 验证不能比父级大
+        if (data > this.formTwoTwo[brr[0]]) {
+          callback(new Error("子项分数不能超过父项"));
+        } else {
+          callback();
+        }
+      } else {
+        callback();
+      }
+    },
+    // 周边分数表单校验
+    validataThree(rule, value, callback) {
+      let key = rule.field;
+      let brr = key.split(".");
+      let data = this.formTwoThree[key];
+      //  验证正整数
+      if (!/^[1-9]\d*$/.test(data)) {
+        callback(new Error("请输入正整数分值!"));
+        return;
+      }
+      // 判断是否为子级
+      if (brr.length > 1) {
+        //  为子级
+        // 验证不能比父级大
+        if (data > this.formTwoThree[brr[0]]) {
           callback(new Error("子项分数不能超过父项"));
         } else {
           callback();
